@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: job1
+spec:
+  containers:
+  - args:
+    - variational_autoencoder.py
+    - /root/job1.csv
+    - job1
+    command:
+    - python
+    image: wzheng33/vae:latest
+    name: lenet-test-epoch
+    volumeMounts:
+    - mountPath: /root/
+      name: task-pv-storage
+  # nodeName: node-1.666.shield-pg0.utah.cloudlab.us
+  restartPolicy: Never
+  volumes:
+  - name: task-pv-storage
+    persistentVolumeClaim:
+      claimName: pvc1-nfs
